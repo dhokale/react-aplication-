@@ -13,12 +13,13 @@ this.setState(
 );
 }
 clickMe1=()=>{
+    if(document.getElementById("name").value==""){
+        alert( "edit fealde is blank ");
+   return false;
+    }
 this.setState(
 { name: document.getElementById("name").value} 
 );
-if(document.getElementById("name").value==""){
-    alert( "edit fealde is blank ");
-}
 }
 edit1=()=>{
     this.setState(
@@ -26,12 +27,14 @@ edit1=()=>{
     );
     }
     submit1=()=>{
+        if(document.getElementById("name1").value==""){
+            alert( "edit fealde is blank ");
+       return false;
+        }
         this.setState(
         { name1: document.getElementById("name1").value} 
         );
-        if(document.getElementById("name1").value==""){
-            alert( "edit fealde is blank ");
-        }
+        
         }
         edit2=()=>{
             this.setState(
@@ -39,12 +42,13 @@ edit1=()=>{
             );
             }
             submit2=()=>{
+                if(document.getElementById("name2").value==""){
+                    alert( "edit fealde is blank ");
+               return false;
+                }
                 this.setState(
                 { name2: document.getElementById("name2").value} 
                 );
-                if(document.getElementById("name2").value==""){
-                    alert( "edit fealde is blank ");
-                }
                 }
                 edit3=()=>{
                     this.setState(
@@ -52,12 +56,13 @@ edit1=()=>{
                     );
                     }
                     submit3=()=>{
+                        if(document.getElementById("name3").value==""){
+                            alert( "edit fealde is blank ");
+                       return false;
+                        }
                         this.setState(
                         { name3: document.getElementById("name3").value} 
                         );
-                        if(document.getElementById("name3").value==""){
-                            alert( "edit fealde is blank ");
-                        }
                         }
 render(){
 return(
