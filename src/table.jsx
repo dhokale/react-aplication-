@@ -1,4 +1,3 @@
-
 import React from 'react';
 class Table extends React.Component{    
 state={
@@ -13,7 +12,7 @@ this.setState(
 );
 }
 clickMe1=()=>{
-    if(document.getElementById("name").value==""){
+    if(document.getElementById("name").value===""){
         alert( "edit fealde is blank ");
    return false;
     }
@@ -22,9 +21,8 @@ this.setState(
 );
 }
 delete=()=>{
-    this.setState(
-    { name: document.getElementById("firstRow").innerHTML=null} 
-    );
+    const obj1=document.getElementById("firstRow");
+    obj1.remove();
     }
 edit1=()=>{
     this.setState(
@@ -32,7 +30,7 @@ edit1=()=>{
     );
     }
     submit1=()=>{
-        if(document.getElementById("name1").value==""){
+        if(document.getElementById("name1").value===""){
             alert( "edit fealde is blank ");
        return false;
         }
@@ -41,9 +39,8 @@ edit1=()=>{
         );
         }
         delete1=()=>{
-            this.setState(
-            { name1: document.getElementById("secondRow").innerHTML=null}
-        );
+          const obj2= document.getElementById("secondRow");
+       obj2.remove();
         } 
         edit2=()=>{
             this.setState(
@@ -51,7 +48,7 @@ edit1=()=>{
             );
             }
             submit2=()=>{
-                if(document.getElementById("name2").value==""){
+                if(document.getElementById("name2").value===""){
                     alert( "edit fealde is blank ");
                return false;
                 }
@@ -60,9 +57,8 @@ edit1=()=>{
                 );
                 }
                 delete2=()=>{
-                    this.setState(
-                    { name2: document.getElementById("therdRow").innerHTML=null}
-                );
+                const obj3= document.getElementById("therdRow");
+                obj3.remove();  
                 } 
                 edit3=()=>{
                     this.setState(
@@ -70,7 +66,7 @@ edit1=()=>{
                     );
                     }
                     submit3=()=>{
-                        if(document.getElementById("name3").value==""){
+                        if(document.getElementById("name3").value===""){
                             alert( "edit fealde is blank ");
                        return false;
                         }
@@ -79,15 +75,15 @@ edit1=()=>{
                         );
                         }
                         delete3=()=>{
-                            this.setState(
-                            { name3: document.getElementById("forthRow").innerHTML=null}
-                        );
+                            const obj4= document.getElementById("forthRow");
+                            obj4.remove();
                         } 
 render(){
 return(
 <div>
 <table>
 <caption> welcom to first state program </caption>
+<tbody> 
 <tr>
 <th> "name"</th>
 <th> "edit feeld </th>
@@ -118,6 +114,7 @@ return(
 <td> <button type="button" onClick={this.submit3}> submit</button> </td>
 <td> <button type='button' onClick={this.delete3}>delete</button></td>
 </tr>
+</tbody>
 </table>
 </div>
 );
