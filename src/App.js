@@ -10,7 +10,7 @@ import Accordion from './Accordion.jsx';
 import Table from './table.jsx';
 function App() {
   return(
-  <div class="App">
+  <div className="App">
     <Table/>
    </div>
     );
