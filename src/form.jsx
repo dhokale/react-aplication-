@@ -1,38 +1,44 @@
 import React from 'react';
 class Form extends React.Component{
     state={
-        firstName: '',
-        lastName: '',
-        email: '',
-        mobNo : '',
-        jender : '',
-        dob : '',
-        hobi : ''
+        firstName: null,
+        lastName: null,
+        email: null,
+        mobNo : null,
+        jender : null,
+        dob : null,
+        hobi :null       
     };
 submit=()=>{
+
     this.setState(
 {firstName: document.getElementById("firstname").value ,
 lastName : document.getElementById("lastname").value ,
 email : document.getElementById("email").value ,
 mobNo : document.getElementById("mobno").value ,
 jender : document.querySelectorAll('[name="jender"]').value  ,
-hobi: document.querySelectorAll('[name="hobi"]').value ,
+hobi: document.querySelectorAll('input[name="hobi"]').value ,
 dob: document.getElementById("dob").value
+} , ()=>{
+var table=document.getElementById("mytable");
+var row = table.insertRow();
+    var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      var cell5 = row.insertCell(4);
+      var cell6 = row.insertCell(5);
+      var cell7 = row.insertCell(6);
+    cell1.innerHTML=this.state.firstName ;
+    cell2.innerHTML=this.state.lastName ;
+    cell3.innerHTML=this.state.email ;
+    cell4.innerHTML=this.state.mobNo ;
+    cell5.innerHTML=this.state.jender ;
+    cell6.innerHTML=this.state.hobi;
+    cell7.innerHTML=this.state.dob ;
+ } );  
 }
-    );
-    let tr=document.createElement("tr");
-let td1=document.createElement("td");
-td1.appendChild( this.state.firstName)    
-let td2=document.createElement("td").appendChild(this.state.lastName);
-let td3= document.createElement("td").appendChild(this.state.email);
-let td4= document.createElement("td").appendChild(this.state.mobNo );
-let td5=document.createElement("td").appendChild(this.state.jender);
-let td6= document.createElement("td").appendChild(this.state.hobi );
-let td7 =document.createElement("td").appendChild(this.state.dob );
-tr.appendChild(td1,td2,td3,td4,td5,td6,td7);
-var tbody=document.getElementById("tbody").appendChild(tr);
-}
-    render(){
+render(){
         return(
             <div>
                 <h1>Fill the following Registration Form</h1>
@@ -67,7 +73,7 @@ var tbody=document.getElementById("tbody").appendChild(tr);
 <input id='dob' type="date" aria-required="true"name="date of berth "/>
                <button type="button"onClick={this.submit}> submit</button>
                 </form>
-                <table>
+                <table id='mytable'>
                     
                         <thead>
                             <tr>
@@ -80,8 +86,8 @@ var tbody=document.getElementById("tbody").appendChild(tr);
 <th>date of berth </th>
                             </tr>
                         </thead>
-                        <tbody id='tbody'>
-                    </tbody>
+                    
+                
                 </table>
             </div>
         )
