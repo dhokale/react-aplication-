@@ -1,23 +1,33 @@
 import React from 'react';
 class Form extends React.Component{
-    state={
+ constructor( props){
+     super(props);
+    this.state={
         firstName: null,
         lastName: null,
         email: null,
         mobNo : null,
         jender : null,
         dob : null,
-        hobi :null       
+        hobbies :null       
     };
+}
+check=(event)=>{
+    this.setState(
+        { hobbies : event.target.value}
+    );
+}
+radio=(event)=>{
+    this.setState(
+        { jender : event.target.value}
+    );
+}
 submit=()=>{
-
     this.setState(
 {firstName: document.getElementById("firstname").value ,
 lastName : document.getElementById("lastname").value ,
 email : document.getElementById("email").value ,
 mobNo : document.getElementById("mobno").value ,
-jender : document.querySelectorAll('[name="jender"]').value  ,
-hobi: document.querySelectorAll('input[name="hobi"]').value ,
 dob: document.getElementById("dob").value
 } , ()=>{
 var table=document.getElementById("mytable");
@@ -34,7 +44,7 @@ var row = table.insertRow();
     cell3.innerHTML=this.state.email ;
     cell4.innerHTML=this.state.mobNo ;
     cell5.innerHTML=this.state.jender ;
-    cell6.innerHTML=this.state.hobi;
+    cell6.innerHTML=this.state.hobbies;
     cell7.innerHTML=this.state.dob ;
  } );  
 }
@@ -61,14 +71,14 @@ render(){
                     </label>   
                     <p>Select your gender:*</p>
                  <label htmlFor="male">Male</label>
-<input type="radio" id="male" name="gender" value="male"/><br/>
+<input type="radio" id="male" name="gender" value="male"onChange={this.radio}/><br/>
 <label htmlFor="female">Female</label>
-<input type="radio" id="female" name="gender" value="female"/>
-<p> select your hobi </p>
+<input type="radio" id="female" name="gender" value="female"onChange={this.radio}/>
+<p> select your hobbies </p>
 <label htmlFor="playingcricket">playing  cricket </label>
-<input type="checkbox" id="playingcricket" name="hobi" value="playing  cricket "/><br/><br/>
+<input type="checkbox" id="playingcricket" name="hobi" value="playing  cricket "onClick={this.check}/><br/><br/>
 <label htmlFor="singing">Singing</label>
-<input type="checkbox" id="singing" name="hobi" value="Singing"/><br/><br/>
+<input type="checkbox" id="singing" name="hobi" value="Singing"onClick={this.check}/><br/><br/>
 <lable htmlFor="dob">date of berth </lable>
 <input id='dob' type="date" aria-required="true"name="date of berth "/>
                <button type="button"onClick={this.submit}> submit</button>
