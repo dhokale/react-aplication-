@@ -13,24 +13,16 @@ class Form extends React.Component{
     };
 }
 update=(event)=>{
-    var l2=document.getElementById("singing")
-  var l1=document.getElementById("playingcricket") 
-  if(l1.checked==true){
-this.setState(
-{ hobbies :this.state.hobbies.concat([event.target.value])} 
-);
-  }
-  else if(l2.checked==true){
-    this.setState(
-        { hobbies :this.state.hobbies.concat([event.target.value])} 
-        );      
-  }
-  else if(l1.checked==false){
-      this.setState(
-          {hobbies : this.state.hobbies.filter()}
-      );
-  }
-  }
+var inputs = document.querySelectorAll('.pl');
+var select=[]; 
+for(var i=0;i<inputs.length;i++){
+    if(inputs[i].checked==true ){
+        select.push(inputs[i].value);
+        }
+        
+}
+this.setState({ hobbies: select})
+}
 radio=(event)=>{
     this.setState(
         { jender : event.target.value}
@@ -90,9 +82,9 @@ render(){
 <input type="radio" id="female" name="gender" value="female"onChange={this.radio}/>
 <p> select your hobbies </p>
 <label htmlFor="playingcricket">playing  cricket </label>
-<input type="checkbox" id="playingcricket" name="hobi"value="playing  cricket"onChange={this.update}/><br/><br/>
+<input type="checkbox"class="pl" id="playingcricket" name="hobi"value="playing  cricket"onChange={this.update}/><br/><br/>
 <label htmlFor="singing">Singing</label>
-<input type="checkbox" id="singing" name="hobi" value="Singing" onChange={this.update}/><br/><br/>
+<input type="checkbox"class="pl" id="singing" name="hobi" value="Singing" onChange={this.update}/><br/><br/>
 <lable htmlFor="dob">date of berth </lable>
 <input id='dob' type="date" aria-required="true"name="date of berth "/>
                <button type="button"onClick={this.submit}> submit</button>
@@ -117,4 +109,4 @@ render(){
         )
     }
 }
-export default Form;
+export default Form;    
