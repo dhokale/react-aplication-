@@ -16,7 +16,8 @@ update=(event)=>{
 var inputs = document.querySelectorAll('.pl');
 var select=[]; 
 for(var i=0;i<inputs.length;i++){
-    if(inputs[i].checked==true ){
+ 
+    if(inputs[i].checked==true){
         select.push(inputs[i].value);
         }
         
@@ -29,6 +30,30 @@ radio=(event)=>{
     );
 }
 submit=()=>{
+    var mn= document.getElementById("mobno").value ;
+    if(document.getElementById("firstname").value ==""){
+        alert("firstName is blank ")
+        return false;
+    }
+    else if(document.getElementById("lastname").value=="" ){
+        alert("last name  is blank");
+        return false
+    }
+    else if(document.getElementById("email").value ==""){
+        alert("email is blank ");
+        return false
+    }
+else if(document.getElementById("mobno").value  ==""||mn.length<10){
+    alert("mobile number is blank or mobile number should be 10 digit" )
+    return false;
+}
+else if(document.getElementById("dob").value ==""){
+    alert("date of birth is MT") 
+    return false;
+}else if(this.state.hobbies==''){
+    alert("Please choose your hobbies ")
+    return false;
+}
     this.setState(
 {firstName: document.getElementById("firstname").value ,
 lastName : document.getElementById("lastname").value ,
@@ -82,9 +107,9 @@ render(){
 <input type="radio" id="female" name="gender" value="female"onChange={this.radio}/>
 <p> select your hobbies </p>
 <label htmlFor="playingcricket">playing  cricket </label>
-<input type="checkbox"class="pl" id="playingcricket" name="hobi"value="playing  cricket"onChange={this.update}/><br/><br/>
+<input type="checkbox"className="pl" id="playingcricket" name="hobi"value="playing  cricket"onChange={this.update}/><br/><br/>
 <label htmlFor="singing">Singing</label>
-<input type="checkbox"class="pl" id="singing" name="hobi" value="Singing" onChange={this.update}/><br/><br/>
+<input type="checkbox"className="pl" id="singing" name="hobi" value="Singing" onChange={this.update}/><br/><br/>
 <lable htmlFor="dob">date of berth </lable>
 <input id='dob' type="date" aria-required="true"name="date of berth "/>
                <button type="button"onClick={this.submit}> submit</button>
@@ -98,7 +123,7 @@ render(){
                                 <th> email</th>
 <th> mobNo</th>
 <th>jender</th>
-<th>hobi</th>
+<th>hobbies</th>
 <th>date of berth </th>
                             </tr>
                         </thead>
