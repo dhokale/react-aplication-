@@ -31,27 +31,56 @@ radio=(event)=>{
 }
 submit=()=>{
     var mn= document.getElementById("mobno").value ;
-    if(document.getElementById("firstname").value ==""){
+    var firstname=document.getElementById("firstname").value;
+var lastname= document.getElementById("lastname").value;
+var email=document.getElementById("email").value;
+    if(firstname ==""){
         alert("firstName is blank ")
+        document.getElementById("firstname").focus(); 
         return false;
     }
-    else if(document.getElementById("lastname").value=="" ){
+    else if(!isNaN(firstname)){
+alert("**Please fill the firstname only character not a number")
+document.getElementById("firstname").focus()
+return false;   
+} 
+    else if(lastname=="" ){
         alert("last name  is blank");
+        document.getElementById("lastname").focus();
         return false
     }
-    else if(document.getElementById("email").value ==""){
+    else if(!isNaN(lastname)){
+alert("Please fill the lastname only character not a number")
+document.getElementById("lastname").focus();
+return false;   
+}
+    else if(email ==""){
         alert("email is blank ");
+        document.getElementById("email").focus();
         return false
     }
-else if(document.getElementById("mobno").value  ==""||mn.length<10){
+    else if(email.indexOf('@')<=0){
+alert("@ is invalid position");
+document.getElementById("email").focus();
+return false;
+    }
+    else if((email.charAt(email.length-4)!='.') && (email.charAt(email.length-3)!='.')){
+        alert(" . is invalid  position  ")
+        document.getElementById("email").focus();
+        return false;
+    }
+else if( mn ===""||mn.length<=9){
     alert("mobile number is blank or mobile number should be 10 digit" )
+    document.getElementById("mobno").focus();
     return false;
 }
 else if(document.getElementById("dob").value ==""){
     alert("date of birth is MT") 
+    document.getElementById("dob").focus();
     return false;
 }else if(this.state.hobbies==''){
     alert("Please choose your hobbies ")
+    document.getElementById("focuss").focus();
     return false;
 }
     this.setState(
@@ -105,13 +134,13 @@ render(){
 <input type="radio" id="male" name="gender" value="male"onChange={this.radio}/><br/>
 <label htmlFor="female">Female</label>
 <input type="radio" id="female" name="gender" value="female"onChange={this.radio}/>
-<p> select your hobbies </p>
+<p id="focuss"> select your hobbies </p>
 <label htmlFor="playingcricket">playing  cricket </label>
 <input type="checkbox"className="pl" id="playingcricket" name="hobi"value="playing  cricket"onChange={this.update}/><br/><br/>
 <label htmlFor="singing">Singing</label>
 <input type="checkbox"className="pl" id="singing" name="hobi" value="Singing" onChange={this.update}/><br/><br/>
-<lable htmlFor="dob">date of berth </lable>
-<input id='dob' type="date" aria-required="true"name="date of berth "/>
+<label htmlFor="dob">date of berth </label>
+<input id='dob' type="date" aria-required="true"name="date of berth "min="1974-01-01" max="2022-01-01"/>
                <button type="button"onClick={this.submit}> submit</button>
                 </form>
                 <table id='mytable'>
