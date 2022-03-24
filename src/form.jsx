@@ -80,6 +80,11 @@ else if(document.getElementById("dob").value ==""){
     document.getElementById("dob").focus();
     return false;
 }
+else if(this.state.jender===null){
+    alert("please  select your jender ")
+    document.getElementById("male").focus();
+    return false;
+}
     this.setState(
 {firstName: document.getElementById("firstname").value ,
 lastName : document.getElementById("lastname").value ,
@@ -129,9 +134,9 @@ render(){
                     </label>   
                     <p>Select your gender:*</p>
                  <label htmlFor="male">Male</label>
-<input type="radio" id="male" name="gender" value="male"onChange={this.radio}/><br/>
+<input type="radio" id="male" name="gender" aria-required="true" value="male"onChange={this.radio}/><br/>
 <label htmlFor="female">Female</label>
-<input type="radio" id="female" name="gender" value="female"onChange={this.radio}/>
+<input type="radio" id="female" name="gender" aria-required="true" value="female"onChange={this.radio}/>
 <p id="focuss"> select your hobbies </p>
 <label htmlFor="playingcricket">playing  cricket </label>
 <input type="checkbox"className="pl" id="playingcricket" name="hobi"value="playing  cricket"onChange={this.update}/><br/><br/>
