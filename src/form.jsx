@@ -32,6 +32,7 @@ radio=(event)=>{
 submit=()=>{
     var mn= document.getElementById("mobno").value ;
     var firstname=document.getElementById("firstname").value;
+    var letters = [1-0];
 var lastname= document.getElementById("lastname").value;
 var email=document.getElementById("email").value;
     if(firstname ==""){
@@ -39,17 +40,17 @@ var email=document.getElementById("email").value;
         document.getElementById("firstname").focus(); 
         return false;
     }
-    else if(!isNaN(firstname)){
-alert("**Please fill the firstname only character not a number")
-document.getElementById("firstname").focus()
-return false;   
+    else if(firstname.match( letters)||!isNaN(firstname)){
+        alert("**Please fill the firstname only character not a number")
+        document.getElementById("firstname").focus()
+    return false;       
 } 
-    else if(lastname=="" ){
+  else if(lastname=="" ){
         alert("last name  is blank");
         document.getElementById("lastname").focus();
         return false
     }
-    else if(!isNaN(lastname)){
+    else if(lastname.match(letters)||!isNaN(lastname)){
 alert("Please fill the lastname only character not a number")
 document.getElementById("lastname").focus();
 return false;   
@@ -69,7 +70,7 @@ return false;
         document.getElementById("email").focus();
         return false;
     }
-else if( mn ===""||mn.length<=9){
+else if((mn.length < 9  )||(mn.length>10)){
     alert("mobile number is blank or mobile number should be 10 digit" )
     document.getElementById("mobno").focus();
     return false;
@@ -77,10 +78,6 @@ else if( mn ===""||mn.length<=9){
 else if(document.getElementById("dob").value ==""){
     alert("date of birth is MT") 
     document.getElementById("dob").focus();
-    return false;
-}else if(this.state.hobbies==''){
-    alert("Please choose your hobbies ")
-    document.getElementById("focuss").focus();
     return false;
 }
     this.setState(
@@ -107,12 +104,13 @@ var row = table.insertRow();
     cell6.innerHTML=this.state.hobbies;
     cell7.innerHTML=this.state.dob ;
  } );  
+ document.getElementById('myform').reset(); 
 }
 render(){
         return(
             <div>
                 <h1>Fill the following Registration Form</h1>
-                <form>
+                <form id='myform'>
                     <label>
                         firstName:
                         <input id="firstname" name="firstname" type="text" aria-required="true"/><br/><br/><br/>
@@ -142,6 +140,8 @@ render(){
 <label htmlFor="dob">date of berth </label>
 <input id='dob' type="date" aria-required="true"name="date of berth "min="1974-01-01" max="2022-01-01"/>
                <button type="button"onClick={this.submit}> submit</button>
+               <br/>
+               <input type="reset" value="Reset" /> 
                 </form>
                 <table id='mytable'>
                     
