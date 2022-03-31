@@ -1,4 +1,6 @@
 import React from 'react';
+import './button1.jsx';
+import Button1 from './button1.jsx';
 class Form extends React.Component{
  constructor( props){
      super(props);
@@ -11,13 +13,25 @@ class Form extends React.Component{
         dob : null,
         hobbies :[] 
     };
+    this.callRef = React.createRef();  
+}
+  button=()=>{
+    
+
+      // render(){  return(  <button type='button' ref={this.callRef}> edit  </button>);} 
+       
+
+}
+edit=()=>{
+    alert("hello");
+    this.callRef.current.focus();       
 }
 update=(event)=>{
 var inputs = document.querySelectorAll('.pl');
 var select=[]; 
 for(var i=0;i<inputs.length;i++){
  
-    if(inputs[i].checked==true){
+    if(inputs[i].checked===true){
         select.push(inputs[i].value);
         }
         
@@ -30,12 +44,13 @@ radio=(event)=>{
     );
 }
 submit=()=>{
+    
     var mn= document.getElementById("mobno").value ;
     var firstname=document.getElementById("firstname").value;
     var letters = [1-0];
 var lastname= document.getElementById("lastname").value;
 var email=document.getElementById("email").value;
-    if(firstname ==""){
+    if(firstname ===""){
         alert("firstName is blank ")
         document.getElementById("firstname").focus(); 
         return false;
@@ -45,7 +60,7 @@ var email=document.getElementById("email").value;
         document.getElementById("firstname").focus()
     return false;       
 } 
-  else if(lastname=="" ){
+  else if(lastname==="" ){
         alert("last name  is blank");
         document.getElementById("lastname").focus();
         return false
@@ -55,7 +70,7 @@ alert("Please fill the lastname only character not a number")
 document.getElementById("lastname").focus();
 return false;   
 }
-    else if(email ==""){
+    else if(email ===""){
         alert("email is blank ");
         document.getElementById("email").focus();
         return false
@@ -101,6 +116,9 @@ var row = table.insertRow();
       var cell5 = row.insertCell(4);
       var cell6 = row.insertCell(5);
       var cell7 = row.insertCell(6);
+      var cell8 = row.insertCell(7);
+      var cell9 = row.insertCell(8); 
+
     cell1.innerHTML=this.state.firstName ;
     cell2.innerHTML=this.state.lastName ;
     cell3.innerHTML=this.state.email ;
@@ -108,8 +126,11 @@ var row = table.insertRow();
     cell5.innerHTML=this.state.jender ;
     cell6.innerHTML=this.state.hobbies;
     cell7.innerHTML=this.state.dob ;
- } );  
+    cell8.innerHTML= <Button1/> //' <button onKeyPress={this.edit}>edit</button>  '  
+    cell9.innerHTML='<button type="button" > delete </button>'
+} );  
  document.getElementById('myform').reset(); 
+ 
 }
 render(){
         return(
@@ -131,7 +152,7 @@ render(){
                     <label>
                         mobNo:
                         <input id="mobno" name="mobno" type="number" aria-required="true"/><br/><br/><br/>
-                    </label>   
+                </label>   
                     <p>Select your gender:*</p>
                  <label htmlFor="male">Male</label>
 <input type="radio" id="male" name="gender" aria-required="true" value="male"onChange={this.radio}/><br/>
@@ -159,6 +180,8 @@ render(){
 <th>jender</th>
 <th>hobbies</th>
 <th>date of berth </th>
+<th> edit</th>
+<th>delete</th>
                             </tr>
                         </thead>
                     
