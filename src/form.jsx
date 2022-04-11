@@ -1,3 +1,4 @@
+
 import React from 'react';
 import './button1.jsx';
 import Button1 from './button1.jsx';
@@ -103,11 +104,17 @@ email : document.getElementById("email").value ,
 mobNo : document.getElementById("mobno").value ,
 dob: document.getElementById("dob").value
 } , ()=>{
+    var insertData=[];
 var data = new Map()
 //data.set(0,10)
-data.set(this.state.counter, { first: this.state.firstName, last: this.state.lastName, email: this.state.email, phone: this.state.mobNo ,jender: this.state.jender , hobbies: this.state.hobbies , dob: this.state.dob}  );
-this.setState({map: data})
-});
+data=data.set(this.state.counter, { first: this.state.firstName, last: this.state.lastName, email: this.state.email, phone: this.state.mobNo ,jender: this.state.jender , hobbies: this.state.hobbies , dob: this.state.dob} )
+insertData.push(data)
+console.log(insertData)
+    
+this.setState({map: insertData})
+this.setState(
+    { counter:this.state.counter+1}
+)});
 document.getElementById('myform').reset(); 
 }
 render(){
@@ -117,22 +124,23 @@ render(){
                 <form id='myform'>
                     <label>
                         firstName:
-                        <input id="firstname" name="firstname" type="text" aria-required="true"/><br/><br/><br/>
+                        <input id="firstname" name="firstname" type="text" aria-required="true"/><br/>
                     </label>
                     <label>
                         lastName:
-                        <input id="lastname" name="lastname" type="text" aria-required="true"/><br/><br/><br/>
+                        <input id="lastname" name="lastname" type="text" aria-required="true"/><br/>
                     </label>
                     <label>
                         email:
-                        <input id="email" name="email" type="email" aria-required="true"/><br/><br/><br/>
+                        <input id="email" name="email" type="email" aria-required="true"/><br/>
                     </label>
                     <label>
                         mobNo:
-                        <input id="mobno" name="mobno" type="number" aria-required="true"/><br/><br/><br/>
+                        <input id="mobno" name="mobno" type="number" aria-required="true"/><br/>
                 </label>   
                     <p>Select your gender:*</p>
                  <label htmlFor="male">Male</label>
+<input type="radio" id="male" name="gender" aria-required="true" value="male"onChange={this.radio}/><br/>
 <input type="radio" id="male" name="gender" aria-required="true" value="male"onChange={this.radio}/><br/>
 <label htmlFor="female">Female</label>
 <input type="radio" id="female" name="gender" aria-required="true" value="female"onChange={this.radio}/>
@@ -162,19 +170,24 @@ render(){
 <th>delete</th>
                             </tr>
                         </thead>
-                        {this.state.map.forEach(( keys , value) =>{ return(<tr>
+                        <tbody>
+                        {this.state.map.forEach( (keys ,  value) =>{
+                            alert(keys)
+                             return(<tr>
     <td>this.state.map.values.first </td>
     <td> this.state.map.values.last</td>
     <td> this.state.map.values.email</td>
-<td> this.state.mape.value.phone</td>
+<td> this.state.map.value.phone</td>
 <td>this.state.map.values.jender</td>
 <td>this.state.map.values.hobbies</td>
 <td>this.state.map.values.dob</td>
 <td> <button > edit</button></td>
 <td><button > delite</button> </td>
      </tr>
+     
          ); })
-}                   
+}
+</tbody>                   
                 </table>
             </div>
         )
