@@ -107,9 +107,8 @@ dob: document.getElementById("dob").value
     var insertData=[];
 var data = new Map()
 //data.set(0,10)
-data=data.set(this.state.counter, { first: this.state.firstName, last: this.state.lastName, email: this.state.email, phone: this.state.mobNo ,jender: this.state.jender , hobbies: this.state.hobbies , dob: this.state.dob} )
+data.set(this.state.counter, { first: this.state.firstName, last: this.state.lastName, email: this.state.email, phone: this.state.mobNo ,jender: this.state.jender , hobbies: this.state.hobbies , dob: this.state.dob} )
 insertData.push(data)
-console.log(insertData)
     
 this.setState({map: insertData})
 this.setState(
@@ -171,22 +170,28 @@ render(){
                             </tr>
                         </thead>
                         <tbody>
-                        {this.state.map.forEach( (keys ,  value) =>{
-                            alert(keys)
-                             return(<tr>
-    <td>this.state.map.values.first </td>
-    <td> this.state.map.values.last</td>
-    <td> this.state.map.values.email</td>
-<td> this.state.map.value.phone</td>
-<td>this.state.map.values.jender</td>
-<td>this.state.map.values.hobbies</td>
-<td>this.state.map.values.dob</td>
-<td> <button > edit</button></td>
-<td><button > delite</button> </td>
-     </tr>
-     
-         ); })
-}
+                        {
+                             this.state.map.forEach(function(values,keys) {
+                values.forEach(function(value,key){                
+        //alert(value.first)
+    return( 
+        <div>                                     
+                                 <tr>
+        <td>value.first </td>
+        <td> value.last </td>
+        <td>value.email </td>
+    <td>value.phone</td>
+    <td>value.jender</td>
+    <td>value.hobbies</td>
+    <td>value.dob</td>
+    <td> <button > edit</button></td>
+    <td><button > delite</button> </td>
+         </tr>
+   </div>
+    );
+             }) })
+                            }
+
 </tbody>                   
                 </table>
             </div>
