@@ -1,7 +1,4 @@
-
 import React from 'react';
-import './button1.jsx';
-import Button1 from './button1.jsx';
 class Form extends React.Component{
  constructor( props){
      super(props);
@@ -14,7 +11,7 @@ class Form extends React.Component{
         dob : null,
         hobbies :[],
         counter: 0, 
-        map: new Map()
+        map: null
     };
     this.callRef = React.createRef();  
 }
@@ -28,7 +25,7 @@ var inputs = document.querySelectorAll('.pl');
 var select=[]; 
 for(var i=0;i<inputs.length;i++){
  
-    if(inputs[i].checked===true){
+    if(inputs[i].checked==true){
         select.push(inputs[i].value);
         }
         
@@ -105,15 +102,25 @@ mobNo : document.getElementById("mobno").value ,
 dob: document.getElementById("dob").value
 } , ()=>{
     var insertData=[];
-var data = new Map()
-//data.set(0,10)
-data.set(this.state.counter, { first: this.state.firstName, last: this.state.lastName, email: this.state.email, phone: this.state.mobNo ,jender: this.state.jender , hobbies: this.state.hobbies , dob: this.state.dob} )
-insertData.push(data)
-    
-this.setState({map: insertData})
-this.setState(
-    { counter:this.state.counter+1}
-)});
+    insertData.push({first: this.state.firstName, last: this.state.lastName, email: this.state.email, phone: this.state.mobNo ,jender: this.state.jender , hobbies: this.state.hobbies , dob: this.state.dob});
+ 
+    this.setState(
+        {map:                                      
+            <tr>
+        <td>{insertData[this.state.counter].first} </td>
+        <td>  {insertData[this.state.counter].last}</td>
+        <td>{ insertData[this.state.counter].email} </td>
+        <td>{insertData[this.state.counter].phone} </td>
+        <td>{insertData[this.state.counter].jender}</td>
+        <td>{insertData[this.state.counter].hobbies}s</td>
+        <td>{insertData[this.state.counter].dob}</td>
+        <td> <button > edit</button></td>
+        <td><button > delite</button> </td>
+        </tr>
+        }
+    )
+});
+
 document.getElementById('myform').reset(); 
 }
 render(){
@@ -169,29 +176,11 @@ render(){
 <th>delete</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id='tbody'>
                         {
-                             this.state.map.forEach(function(values,keys) {
-                values.forEach(function(value,key){                
-        //alert(value.first)
-    return( 
-        <div>                                     
-                                 <tr>
-        <td>value.first </td>
-        <td> value.last </td>
-        <td>value.email </td>
-    <td>value.phone</td>
-    <td>value.jender</td>
-    <td>value.hobbies</td>
-    <td>value.dob</td>
-    <td> <button > edit</button></td>
-    <td><button > delite</button> </td>
-         </tr>
-   </div>
-    );
-             }) })
-                            }
-
+                            this.state.map
+                        }
+                            
 </tbody>                   
                 </table>
             </div>
