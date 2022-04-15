@@ -13,6 +13,10 @@ class Form extends React.Component{
         counter: 0, 
         map: null
     };
+    this.first= React.createRef();
+    this.last= React.createRef();
+    this.email= React.createRef();
+    this.phone= React.createRef();
     this.callRef = React.createRef();  
 }
   
@@ -46,12 +50,12 @@ var lastname= document.getElementById("lastname").value;
 var email=document.getElementById("email").value;
     if(firstname ===""){
         alert("firstName is blank ")
-        document.getElementById("firstname").focus(); 
+        this.first.current.focus(); 
         return false;
     }
     else if(firstname.match( letters)||!isNaN(firstname)){
         alert("**Please fill the firstname only character not a number")
-        document.getElementById("firstname").focus()
+        this.first.current.focus(); 
     return false;       
 } 
   else if(lastname==="" ){
@@ -102,25 +106,26 @@ mobNo : document.getElementById("mobno").value ,
 dob: document.getElementById("dob").value
 } , ()=>{
     var insertData=[];
-    insertData.push({first: this.state.firstName, last: this.state.lastName, email: this.state.email, phone: this.state.mobNo ,jender: this.state.jender , hobbies: this.state.hobbies , dob: this.state.dob});
- 
+    var shoData=[];
+    insertData[this.state.counter]={first: this.state.firstName, last: this.state.lastName, email: this.state.email, phone: this.state.mobNo ,jender: this.state.jender , hobbies: this.state.hobbies , dob: this.state.dob}
+ shoData[this.state.counter]=(<tr>
+ <td>{insertData[this.state.counter].first} </td>
+ <td>  {insertData[this.state.counter].last}</td>
+ <td>{ insertData[this.state.counter].email} </td>
+ <td>{insertData[this.state.counter].phone} </td>
+ <td>{insertData[this.state.counter].jender}</td>
+ <td>{insertData[this.state.counter].hobbies}s</td>
+ <td>{insertData[this.state.counter].dob}</td>
+ <td> <button > edit</button></td>
+ <td><button > delite</button> </td>
+ </tr>
+ )
     this.setState(
-        {map:                                      
-            <tr>
-        <td>{insertData[this.state.counter].first} </td>
-        <td>  {insertData[this.state.counter].last}</td>
-        <td>{ insertData[this.state.counter].email} </td>
-        <td>{insertData[this.state.counter].phone} </td>
-        <td>{insertData[this.state.counter].jender}</td>
-        <td>{insertData[this.state.counter].hobbies}s</td>
-        <td>{insertData[this.state.counter].dob}</td>
-        <td> <button > edit</button></td>
-        <td><button > delite</button> </td>
-        </tr>
+        {map: shoData 
         }
     )
 });
-
+this.setState({counter:this.state.counter+1})
 document.getElementById('myform').reset(); 
 }
 render(){
@@ -130,24 +135,24 @@ render(){
                 <form id='myform'>
                     <label>
                         firstName:
-                        <input id="firstname" name="firstname" type="text" aria-required="true"/><br/>
+                        <input id="firstname" name="firstname"type="text" aria-required="true"ref={this.ffirst}/><br/>
                     </label>
                     <label>
                         lastName:
-                        <input id="lastname" name="lastname" type="text" aria-required="true"/><br/>
+                        <input id="lastname" name="lastname" type="text" aria-required="true"ref={this.last}/><br/>
                     </label>
                     <label>
                         email:
-                        <input id="email" name="email" type="email" aria-required="true"/><br/>
+                        <input id="email" name="email" type="email" aria-required="true"ref={this.email}/><br/>
                     </label>
                     <label>
                         mobNo:
-                        <input id="mobno" name="mobno" type="number" aria-required="true"/><br/>
+                        <input id="mobno" name="mobno" type="number" aria-required="true"ref={this.phone}/><br/>
                 </label>   
                     <p>Select your gender:*</p>
                  <label htmlFor="male">Male</label>
 <input type="radio" id="male" name="gender" aria-required="true" value="male"onChange={this.radio}/><br/>
-<input type="radio" id="male" name="gender" aria-required="true" value="male"onChange={this.radio}/><br/>
+<input type="radio" id="male" name="gender" aria-required="true" value="other"onChange={this.radio}/><br/>
 <label htmlFor="female">Female</label>
 <input type="radio" id="female" name="gender" aria-required="true" value="female"onChange={this.radio}/>
 <p id="focuss"> select your hobbies </p>
