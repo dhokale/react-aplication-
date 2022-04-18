@@ -11,7 +11,7 @@ class Form extends React.Component{
         dob : null,
         hobbies :[],
         counter: 0, 
-        map: null
+        map: []
     };
     this.first= React.createRef();
     this.last= React.createRef();
@@ -105,25 +105,24 @@ dob: this.dob.current.value,
 counter:this.state.counter+1
 } , ()=>{
     var insertData=[null];
-    var shoData=[null];
+
 insertData[this.state.counter]={first: this.state.firstName, last: this.state.lastName, email: this.state.email, phone: this.state.mobNo ,jender: this.state.jender , hobbies: this.state.hobbies , dob: this.state.dob}
- let newshoData=shoData.concat([<tr>
-    <td>{insertData[this.state.counter].first} </td>
-    <td>  {insertData[this.state.counter].last}</td>
-    <td>{ insertData[this.state.counter].email} </td>
-    <td>{insertData[this.state.counter].phone} </td>
-    <td>{insertData[this.state.counter].jender}</td>
-    <td>{insertData[this.state.counter].hobbies}s</td>
-    <td>{insertData[this.state.counter].dob}</td>
-    <td> <button > edit</button></td>
-    <td><button > delite</button> </td>
-    </tr>
-  ] )
-    this.setState(
-        {map: newshoData 
-        }
-    )
+this.setState(
+    {map: this.state.map.concat([<tr>
+        <td>{insertData[this.state.counter].first} </td>
+        <td>  {insertData[this.state.counter].last}</td>
+        <td>{ insertData[this.state.counter].email} </td>
+        <td>{insertData[this.state.counter].phone} </td>
+        <td>{insertData[this.state.counter].jender}</td>
+        <td>{insertData[this.state.counter].hobbies}s</td>
+        <td>{insertData[this.state.counter].dob}</td>
+        <td> <button > edit</button></td>
+        <td><button > delite</button> </td>
+        </tr>]) 
+    }
+)    
 });
+
 document.getElementById('myform').reset(); 
 }
 render(){
