@@ -17,7 +17,9 @@ class Form extends React.Component{
     this.last= React.createRef();
     this.email= React.createRef();
     this.phone= React.createRef();
-    this.callRef = React.createRef();  
+    this.dob=React.createRef();
+    this.callRef = React.createRef();
+    this.male=React.createRef();  
 }
   
 edit=()=>{
@@ -43,89 +45,85 @@ radio=(event)=>{
 }
 
 submitMap=()=>{
-    var mn= document.getElementById("mobno").value ;
-    var firstname=document.getElementById("firstname").value;
     var letters = [1-0];
-var lastname= document.getElementById("lastname").value;
-var email=document.getElementById("email").value;
-    if(firstname ===""){
+    if(this.first.current.value ===""){
         alert("firstName is blank ")
         this.first.current.focus(); 
         return false;
     }
-    else if(firstname.match( letters)||!isNaN(firstname)){
+    else if(this.first.current.value===letters||!isNaN(this.first.current.value)){
         alert("**Please fill the firstname only character not a number")
         this.first.current.focus(); 
     return false;       
 } 
-  else if(lastname==="" ){
+  else if(this.last.current.value===""){
         alert("last name  is blank");
-        document.getElementById("lastname").focus();
+        this.last.current.focus(); 
         return false
     }
-    else if(lastname.match(letters)||!isNaN(lastname)){
+    else if(this.last.current.value===letters||!isNaN(this.last.current.value)){
 alert("Please fill the lastname only character not a number")
-document.getElementById("lastname").focus();
+this.last.current.focus(); 
 return false;   
 }
-    else if(email ===""){
+    else if(this.email.current.value===""){
         alert("email is blank ");
-        document.getElementById("email").focus();
+        this.email.current.focus(); 
         return false
     }
-    else if(email.indexOf('@')<=0){
-alert("@ is invalid position");
-document.getElementById("email").focus();
+    else if(this.email.current.value.indexOf('@')<=0){
+alert("at is inVelede  position ")
+this.email.current.focus(); 
 return false;
     }
-    else if((email.charAt(email.length-4)!='.') && (email.charAt(email.length-3)!='.')){
+    else if((this.email.current.value.charAt(this.email.current.value.length-4)!='.') && (this.email.current.value.charAt(this.email.current.value.length-3)!='.')){
         alert(" . is invalid  position  ")
-        document.getElementById("email").focus();
+        this.email.current.focus(); 
         return false;
     }
-else if((mn.length < 9  )||(mn.length>10)){
+else if((this.phone.current.value.length < 9  )||(this.phone.current.value.length>10)){
     alert("mobile number is blank or mobile number should be 10 digit" )
-    document.getElementById("mobno").focus();
+    this.phone.current.focus(); 
     return false;
 }
-else if(document.getElementById("dob").value ==""){
+else if(this.dob.current.value==""){
     alert("date of birth is MT") 
-    document.getElementById("dob").focus();
+    this.dob.current.focus(); 
     return false;
 }
 else if(this.state.jender===null){
     alert("please  select your jender ")
-    document.getElementById("male").focus();
+    this.male.current.focus(); 
     return false;
 }
     this.setState(
-{firstName: document.getElementById("firstname").value ,
-lastName : document.getElementById("lastname").value ,
-email : document.getElementById("email").value ,
-mobNo : document.getElementById("mobno").value ,
-dob: document.getElementById("dob").value
+{firstName: this.first.current.value ,
+lastName : this.last.current.value ,
+email : this.email.current.value ,
+mobNo : this.phone.current.value ,
+dob: this.dob.current.value,
+counter:this.state.counter+1
 } , ()=>{
-    var insertData=[];
-    var shoData=[];
-    insertData[this.state.counter]={first: this.state.firstName, last: this.state.lastName, email: this.state.email, phone: this.state.mobNo ,jender: this.state.jender , hobbies: this.state.hobbies , dob: this.state.dob}
- shoData[this.state.counter]=(<tr>
- <td>{insertData[this.state.counter].first} </td>
- <td>  {insertData[this.state.counter].last}</td>
- <td>{ insertData[this.state.counter].email} </td>
- <td>{insertData[this.state.counter].phone} </td>
- <td>{insertData[this.state.counter].jender}</td>
- <td>{insertData[this.state.counter].hobbies}s</td>
- <td>{insertData[this.state.counter].dob}</td>
- <td> <button > edit</button></td>
- <td><button > delite</button> </td>
- </tr>
- )
+    var insertData=[null];
+    var shoData=[null];
+insertData[this.state.counter]={first: this.state.firstName, last: this.state.lastName, email: this.state.email, phone: this.state.mobNo ,jender: this.state.jender , hobbies: this.state.hobbies , dob: this.state.dob}
+ let newshoData=shoData.concat([<tr>
+    <td>{insertData[this.state.counter].first} </td>
+    <td>  {insertData[this.state.counter].last}</td>
+    <td>{ insertData[this.state.counter].email} </td>
+    <td>{insertData[this.state.counter].phone} </td>
+    <td>{insertData[this.state.counter].jender}</td>
+    <td>{insertData[this.state.counter].hobbies}s</td>
+    <td>{insertData[this.state.counter].dob}</td>
+    <td> <button > edit</button></td>
+    <td><button > delite</button> </td>
+    </tr>
+  ] )
     this.setState(
-        {map: shoData 
+        {map: newshoData 
         }
     )
 });
-this.setState({counter:this.state.counter+1})
 document.getElementById('myform').reset(); 
 }
 render(){
@@ -135,7 +133,7 @@ render(){
                 <form id='myform'>
                     <label>
                         firstName:
-                        <input id="firstname" name="firstname"type="text" aria-required="true"ref={this.ffirst}/><br/>
+                        <input id="firstname" name="firstname"type="text" aria-required="true"ref={this.first}/><br/>
                     </label>
                     <label>
                         lastName:
@@ -151,7 +149,7 @@ render(){
                 </label>   
                     <p>Select your gender:*</p>
                  <label htmlFor="male">Male</label>
-<input type="radio" id="male" name="gender" aria-required="true" value="male"onChange={this.radio}/><br/>
+<input type="radio" id="male" name="gender" aria-required="true" value="male" ref={this.male} onChange={this.radio} /><br/>
 <input type="radio" id="male" name="gender" aria-required="true" value="other"onChange={this.radio}/><br/>
 <label htmlFor="female">Female</label>
 <input type="radio" id="female" name="gender" aria-required="true" value="female"onChange={this.radio}/>
@@ -161,8 +159,8 @@ render(){
 <label htmlFor="singing">Singing</label>
 <input type="checkbox"className="pl" id="singing" name="hobi" value="Singing" onChange={this.checkbox}/><br/><br/>
 <label htmlFor="dob">date of berth </label>
-<input id='dob' type="date" aria-required="true"name="date of berth "min="1974-01-01" max="2022-01-01"/>
-               <button type="button"onClick={this.submitMap}> submit</button>
+<input id='dob' type="date" aria-required="true"name="date of berth "min="1974-01-01" max="2022-01-01"ref={this.dob}/>
+               <button type="button"onClick={ this.submitMap}> submit</button>
                <br/>
                <input type="reset" value="Reset" /> 
                 </form>
