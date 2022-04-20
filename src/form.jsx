@@ -35,7 +35,7 @@ var select=[];
 for(var i=0;i<inputs.length;i++){
  
     if(inputs[i].checked==true){
-        select.push(inputs[i].value);
+        select.push(inputs[i].value,);
         }
         
 }
@@ -149,12 +149,13 @@ render(){
                     <p>Select your gender:*</p>
                  <label htmlFor="male">Male</label>
 <input type="radio" id="male" name="gender" aria-required="true" value="male" ref={this.male} onChange={this.radio} /><br/>
-<input type="radio" id="male" name="gender" aria-required="true" value="other"onChange={this.radio}/><br/>
+<label htmlFor="other">Other</label>
+<input type="radio" id="other" name="gender" aria-required="true" value="other"onChange={this.radio}/><br/>
 <label htmlFor="female">Female</label>
 <input type="radio" id="female" name="gender" aria-required="true" value="female"onChange={this.radio}/>
 <p id="focuss"> select your hobbies </p>
 <label htmlFor="playingcricket">playing  cricket </label>
-<input type="checkbox"className="pl" id="playingcricket" name="hobi"value="playing  cricket"onChange={this.checkbox}/><br/><br/>
+<input type="checkbox"className="pl" id="playingcricket" name="hobi"value="playing cricket,"onChange={this.checkbox}/><br/><br/>
 <label htmlFor="singing">Singing</label>
 <input type="checkbox"className="pl" id="singing" name="hobi" value="Singing" onChange={this.checkbox}/><br/><br/>
 <label htmlFor="dob">date of berth </label>
