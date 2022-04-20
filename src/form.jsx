@@ -23,8 +23,11 @@ class Form extends React.Component{
 }
   
 edit=()=>{
-    alert("hello");
-    this.callRef.current.focus();       
+    for(var i=0;i<this.state.map.length;i++){
+alert(this.state.map[i])
+}
+   //const node= this.callRef.current.value;
+    
 }
 checkbox=(event)=>{
 var inputs = document.querySelectorAll('.pl');
@@ -44,7 +47,7 @@ radio=(event)=>{
     );
 }
 
-submitMap=()=>{
+submitMap=(event)=>{
     var letters = [1-0];
     if(this.first.current.value ===""){
         alert("firstName is blank ")
@@ -97,27 +100,24 @@ else if(this.state.jender===null){
     return false;
 }
     this.setState(
-{firstName: this.first.current.value ,
-lastName : this.last.current.value ,
-email : this.email.current.value ,
-mobNo : this.phone.current.value ,
-dob: this.dob.current.value,
+{firstName: this.first.current.value,
+lastName : this.last.current.value,
+email : this.email.current.value,
+mobNo :this.phone.current.value ,
+dob: this.dob.current.value ,
 counter:this.state.counter+1
 } , ()=>{
-    var insertData=[null];
-
-insertData[this.state.counter]={first: this.state.firstName, last: this.state.lastName, email: this.state.email, phone: this.state.mobNo ,jender: this.state.jender , hobbies: this.state.hobbies , dob: this.state.dob}
 this.setState(
     {map: this.state.map.concat([<tr>
-        <td>{insertData[this.state.counter].first} </td>
-        <td>  {insertData[this.state.counter].last}</td>
-        <td>{ insertData[this.state.counter].email} </td>
-        <td>{insertData[this.state.counter].phone} </td>
-        <td>{insertData[this.state.counter].jender}</td>
-        <td>{insertData[this.state.counter].hobbies}s</td>
-        <td>{insertData[this.state.counter].dob}</td>
-        <td> <button > edit</button></td>
-        <td><button > delite</button> </td>
+        <td>{this.state.firstName} </td>
+        <td>  {this.state.lastName}</td>
+        <td>{ this.state.email} </td>
+        <td>{this.state.mobNo} </td>
+        <td>{this.state.jender}</td>
+        <td>{this.state.hobbies}</td>
+        <td>{this.state.dob}</td>
+        <td> <button ref={this.callRef} onClick={this.edit}> edit</button></td>
+    <td><button > delete</button> </td>
         </tr>]) 
     }
 )    
