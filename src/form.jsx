@@ -9,9 +9,10 @@ class Form extends React.Component{
         mobNo : null,
         jender : null,
         dob : null,
-        hobbies :[],
+        hobbies :'empty',
         counter: 0, 
-        map: []
+        map: [],
+        counter1: 0
     };
     this.first= React.createRef();
     this.last= React.createRef();
@@ -33,13 +34,13 @@ checkbox=(event)=>{
 var inputs = document.querySelectorAll('.pl');
 var select=[]; 
 for(var i=0;i<inputs.length;i++){
- 
     if(inputs[i].checked==true){
         select.push(inputs[i].value,);
         }
         
 }
 this.setState({ hobbies: select})
+this.setState({counter: this.state.counter+1})
 }
 radio=(event)=>{
     this.setState(
@@ -99,13 +100,14 @@ else if(this.state.jender===null){
     this.male.current.focus(); 
     return false;
 }
+
     this.setState(
 {firstName: this.first.current.value,
 lastName : this.last.current.value,
 email : this.email.current.value,
 mobNo :this.phone.current.value ,
-dob: this.dob.current.value ,
-counter:this.state.counter+1
+dob: this.dob.current.value,
+counter1: this.state.counter 
 } , ()=>{
 this.setState(
     {map: this.state.map.concat([<tr>
@@ -123,7 +125,10 @@ this.setState(
 )    
 });
 
-document.getElementById('myform').reset(); 
+document.getElementById('myform').reset();
+if(this.state.counter1==this.state.counter){
+    this.setState({hobbies:'empty'})
+}
 }
 render(){
         return(
