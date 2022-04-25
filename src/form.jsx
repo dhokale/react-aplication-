@@ -9,7 +9,7 @@ class Form extends React.Component{
         mobNo : null,
         jender : null,
         dob : null,
-        hobbies :'empty',
+        hobbies :'na-',
         counter: 0, 
         map: [],
         counter1: 0
@@ -24,24 +24,21 @@ class Form extends React.Component{
 }
   
 edit=()=>{
-    for(var i=0;i<this.state.map.length;i++){
-alert(this.state.map[i])
+      
 }
-   //const node= this.callRef.current.value;
-    
-}
-checkbox=(event)=>{
-var inputs = document.querySelectorAll('.pl');
-var select=[]; 
-for(var i=0;i<inputs.length;i++){
-    if(inputs[i].checked==true){
-        select.push(inputs[i].value,);
-        }
-        
-}
-this.setState({ hobbies: select})
-this.setState({counter: this.state.counter+1})
-}
+checkbox=(e)=>{
+    var inputs = document.querySelectorAll('.pl');
+    var select=[]; 
+    for(var i=0;i<inputs.length;i++){
+        if(inputs[i].checked==true){
+            select.push(inputs[i].value);
+            }
+            
+    }
+    this.setState({ hobbies: select,
+        counter:this.state.counter+1
+    })            
+    }
 radio=(event)=>{
     this.setState(
         { jender : event.target.value}
@@ -49,6 +46,7 @@ radio=(event)=>{
 }
 
 submitMap=(event)=>{
+    
     var letters = [1-0];
     if(this.first.current.value ===""){
         alert("firstName is blank ")
@@ -124,13 +122,13 @@ this.setState(
     }
 )    
 });
-
 document.getElementById('myform').reset();
 if(this.state.counter1==this.state.counter){
-    this.setState({hobbies:'empty'})
+    this.setState({hobbies: 'na'})
 }
 }
 render(){
+    
         return(
             <div>
                 <h1>Fill the following Registration Form</h1>
@@ -160,9 +158,9 @@ render(){
 <input type="radio" id="female" name="gender" aria-required="true" value="female"onChange={this.radio}/>
 <p id="focuss"> select your hobbies </p>
 <label htmlFor="playingcricket">playing  cricket </label>
-<input type="checkbox"className="pl" id="playingcricket" name="hobi"value="playing cricket,"onChange={this.checkbox}/><br/><br/>
-<label htmlFor="singing">Singing</label>
-<input type="checkbox"className="pl" id="singing" name="hobi" value="Singing" onChange={this.checkbox}/><br/><br/>
+<input type="checkbox"className="pl" id="playingcricket" name="hobi"value="playing cricket,"onClick={this.checkbox.bind(this)}/><br/><br/>
+<label htmlFor="singing">singing</label>
+<input type="checkbox"className="pl" id="singing" name="hobi" value="Singing" onClick={this.checkbox}/><br/><br/>
 <label htmlFor="dob">date of berth </label>
 <input id='dob' type="date" aria-required="true"name="date of berth "min="1974-01-01" max="2022-01-01"ref={this.dob}/>
                <button type="button"onClick={ this.submitMap}> submit</button>
@@ -194,5 +192,6 @@ render(){
             </div>
         )
     }
+    
 }
 export default Form;    
