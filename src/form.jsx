@@ -123,7 +123,7 @@ this.setState(
 )    
 });
 document.getElementById('myform').reset();
-if(this.state.counter1==this.state.counter){
+if(this.state.counter1==this.state.counter||this.state.hobbies==""){
     this.setState({hobbies: 'na'})
 }
 }
