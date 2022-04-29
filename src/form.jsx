@@ -1,22 +1,24 @@
 import React from 'react';
+import * as ReactDOM from 'react-dom';
 class Form extends React.Component{
  constructor( props){
      super(props);
     this.state={
-        firstName: null,
+        tfirstName: null,
         lastName: null,
         email: null,
         mobNo : null,
         jender : null,
         dob : null,
         hobbies :'na-',
-        counter: 0, 
+            counter: 0, 
         map: [],
-        counter1: 0
+        counter1: 0 ,
+        counter2: 0
     };
     this.first= React.createRef();
     this.last= React.createRef();
-    this.email= React.createRef();
+    this.email= React.createRef()
     this.phone= React.createRef();
     this.dob=React.createRef();
     this.callRef = React.createRef();
@@ -24,7 +26,9 @@ class Form extends React.Component{
 }
   
 edit=()=>{
-      
+
+    const element=<input type={Text}placeholder={this.callRef.current.parentNode.parentNode.children[0].value}/>
+ ReactDOM.render( element,this.callRef.current.parentNode.parentNode.children[0])      
 }
 checkbox=(e)=>{
     var inputs = document.querySelectorAll('.pl');
@@ -105,10 +109,11 @@ lastName : this.last.current.value,
 email : this.email.current.value,
 mobNo :this.phone.current.value ,
 dob: this.dob.current.value,
-counter1: this.state.counter 
+counter1: this.state.counter ,
+counter2: this.state.counter2+1
 } , ()=>{
 this.setState(
-    {map: this.state.map.concat([<tr>
+    {map: this.state.map.concat([<tr id={this.state.counter2}>
         <td>{this.state.firstName} </td>
         <td>  {this.state.lastName}</td>
         <td>{ this.state.email} </td>
@@ -170,7 +175,7 @@ render(){
                 <table id='mytable'>
                     
                         <thead>
-                            <tr>
+                            <tr id='first'>
                                 <th> firstName</th>
                                 <th> lastName</th>
                                 <th> email</th>
