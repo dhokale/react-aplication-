@@ -24,11 +24,17 @@ class Form extends React.Component{
     this.callRef = React.createRef();
     this.male=React.createRef();  
 }
-  
-edit=()=>{
-
-    const element=<input type={Text}placeholder={this.callRef.current.parentNode.parentNode.children[0].value}/>
- ReactDOM.render( element,this.callRef.current.parentNode.parentNode.children[0])      
+save=(event)=>{
+var save= event.target.parentNode.parentNode.children[0].innerHTML=this.first.current.value
+ ReactDOM.render(<button onClick={this.edit}>edit</button> ,event.target.parentNode.parentNode.children[7])
+}  
+edit=(event)=>{
+const element=<label>
+firstName:
+<input id="firstname" name="firstname"type="text" aria-required="true"ref={this.first}/></label> 
+ 
+ ReactDOM.render( element,event.target.parentNode.parentNode.children[0]).focus();      
+ ReactDOM.render( <button onClick={this.save}>save</button>,event.target.parentNode.parentNode.children[7])      
 }
 checkbox=(e)=>{
     var inputs = document.querySelectorAll('.pl');
