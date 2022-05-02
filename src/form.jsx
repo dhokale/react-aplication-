@@ -25,15 +25,15 @@ class Form extends React.Component{
     this.male=React.createRef();  
 }
 save=(event)=>{
-var save= event.target.parentNode.parentNode.children[0].innerHTML=this.first.current.value
+ReactDOM.render(this.first.current.value,event.target.parentNode.parentNode.children[0])
  ReactDOM.render(<button onClick={this.edit}>edit</button> ,event.target.parentNode.parentNode.children[7])
 }  
 edit=(event)=>{
 const element=<label>
 firstName:
-<input id="firstname" name="firstname"type="text" aria-required="true"ref={this.first}/></label> 
+<input id="firstname" name="firstname"type="text" aria-required="true"ref={this.first}/></label>
  
- ReactDOM.render( element,event.target.parentNode.parentNode.children[0]).focus();      
+ ReactDOM.render( element,event.target.parentNode.parentNode.children[0]).focus();       
  ReactDOM.render( <button onClick={this.save}>save</button>,event.target.parentNode.parentNode.children[7])      
 }
 checkbox=(e)=>{
