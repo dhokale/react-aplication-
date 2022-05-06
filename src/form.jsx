@@ -1,10 +1,13 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
+
 class Form extends React.Component{
+    
  constructor( props){
      super(props);
-    this.state={
-        tfirstName: null,
+     let rows = [];     
+     this.state={
+        firstName: null,
         lastName: null,
         email: null,
         mobNo : null,
@@ -12,9 +15,10 @@ class Form extends React.Component{
         dob : null,
         hobbies :'na-',
             counter: 0, 
-        map: [],
+        map: ['hello'],
+        editRowIndex:null, 
         counter1: 0 ,
-        counter2: 0
+        counter2: null
     };
     this.first= React.createRef();
     this.last= React.createRef();
@@ -24,18 +28,52 @@ class Form extends React.Component{
     this.callRef = React.createRef();
     this.male=React.createRef();  
 }
-save=(event)=>{
-ReactDOM.render(this.first.current.value,event.target.parentNode.parentNode.children[0])
- ReactDOM.render(<button onClick={this.edit}>edit</button> ,event.target.parentNode.parentNode.children[7])
-}  
-edit=(event)=>{
-const element=<label>
-firstName:
-<input id="firstname" name="firstname"type="text" aria-required="true"ref={this.first}/></label>
- 
- ReactDOM.render( element,event.target.parentNode.parentNode.children[0]).focus();       
- ReactDOM.render( <button onClick={this.save}>save</button>,event.target.parentNode.parentNode.children[7])      
-}
+handleEditClick = (index) => {
+    return (e) => this.setState({editRowIndex: index} );
+    };
+renderEditableRow = (person, index) => {
+return(
+    <tr>
+    <td><input type="text" value={person.firstName} aria-label="First Name" ref={this.firstNameEditableField} /></td>
+    <td><input type="text" value={person.lastName} aria-label="Last Name" /></td>
+    <td><input type="text" value={person.email} aria-label="email" /></td>
+    <td><input type="text" value={person.phone} aria-label="mobolNo" /></td>
+<td><label htmlFor="male">Male</label>
+<input type="radio" id="male" name="gender" aria-required="true" value="male" ref={this.male} onChange={this.radio} /><br/>
+<label htmlFor="other">Other</label>
+<input type="radio" id="other" name="gender" aria-required="true" value="other"onChange={this.radio}/><br/>
+<label htmlFor="female">Female</label>
+<input type="radio" id="female" name="gender" aria-required="true" value="female"onChange={this.radio}/></td>
+<td><label htmlFor="playingcricket">playing  cricket </label>
+<input type="checkbox"className="pl" id="playingcricket" name="hobi"value="playing cricket,"onClick={this.checkbox}/><br/><br/>
+<label htmlFor="singing">singing</label>
+<input type="checkbox"className="pl" id="singing" name="hobi" value="Singing" onClick={this.checkbox}/><br/><br/></td>        
+  <td><label htmlFor="dob">date of berth </label>
+<input id='dob' type="date" aria-required="true"name="date of berth " value={person.dob}min="1974-01-01" max="2022-01-01"ref={this.dob}/></td>
+    <td>
+    <button onClick={this.handleSaveClick(index)}>Save</button>
+    </td>
+    <button>delete</button>
+    </tr>
+)
+    }
+    renderDisplayRow = (person, index) => {
+        return(
+        <tr>
+        <td>{person.firstname}</td>
+        <td>{person.lastname}</td>
+        <td>{person.email}</td>
+        <td>{person.phone}</td>
+        <td>{person.jender}</td>
+        <td>{person.hobbies}</td>
+        <td>{person.dob}</td>
+        <td>
+        <button onClick={this.handleEditClick(index)}>Edit</button>
+        </td>
+        <td><button>delete</button></td>
+        </tr>
+        )
+        }
 checkbox=(e)=>{
     var inputs = document.querySelectorAll('.pl');
     var select=[]; 
@@ -115,23 +153,20 @@ lastName : this.last.current.value,
 email : this.email.current.value,
 mobNo :this.phone.current.value ,
 dob: this.dob.current.value,
-counter1: this.state.counter ,
-counter2: this.state.counter2+1
+counter1: this.state.counter 
 } , ()=>{
-this.setState(
-    {map: this.state.map.concat([<tr id={this.state.counter2}>
-        <td>{this.state.firstName} </td>
-        <td>  {this.state.lastName}</td>
-        <td>{ this.state.email} </td>
-        <td>{this.state.mobNo} </td>
-        <td>{this.state.jender}</td>
-        <td>{this.state.hobbies}</td>
-        <td>{this.state.dob}</td>
-        <td> <button ref={this.callRef} onClick={this.edit}> edit</button></td>
-    <td><button > delete</button> </td>
-        </tr>]) 
-    }
-)    
+    let people =[];
+    
+   let person={firstname:this.state.firstName,lastname:this.state.lastName,email:this.state.email,phone:this.state.mobNo,jender:this.state.jender,hobbies:this.state.hobbies,dob:this.state.dob}  
+people.push(person)
+
+people.forEach((person, index) => {
+    if(this.state.editRowIndex === index){ this.rows.push(this.renderEditableRow(person, index))
+
+            }
+                    else{ this.rows.push(this.renderDisplayRow(person, index))}
+    })
+    this.setState({counter2:this.rows})
 });
 document.getElementById('myform').reset();
 if(this.state.counter1==this.state.counter||this.state.hobbies==""){
@@ -194,10 +229,7 @@ render(){
                             </tr>
                         </thead>
                         <tbody id='tbody'>
-                        {
-                            this.state.map
-                        }
-                            
+                          {this.state.counter2}    
 </tbody>                   
                 </table>
             </div>
