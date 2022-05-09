@@ -1,11 +1,11 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
 
-class Form extends React.Component{
-    
+class Form extends React.Component{    
  constructor( props){
      super(props);
-     let rows = [];     
+this.rows=[];
+this.people=[];     
      this.state={
         firstName: null,
         lastName: null,
@@ -14,11 +14,9 @@ class Form extends React.Component{
         jender : null,
         dob : null,
         hobbies :'na-',
-            counter: 0, 
-        map: ['hello'],
+            counter: 0,
         editRowIndex:null, 
-        counter1: 0 ,
-        counter2: null
+        counter1: 0 
     };
     this.first= React.createRef();
     this.last= React.createRef();
@@ -28,9 +26,20 @@ class Form extends React.Component{
     this.callRef = React.createRef();
     this.male=React.createRef();  
 }
-handleEditClick = (index) => {
-    return (e) => this.setState({editRowIndex: index} );
+this.handleSaveClick=(firstName, lastName,email,phone,jender,hobbies,dob) => {
+ let person = {
+    firstName:fName,
+    lastName: lName,
+    email: eml,
+    otherDetails: othrdtls
     };
+    this.people.push(person);
+    
+    };
+handleEditClick = (index) => {
+    return(this.renderEditableRow)
+     this.setState({editRowIndex: index} );
+    }
 renderEditableRow = (person, index) => {
 return(
     <tr>
@@ -154,20 +163,17 @@ email : this.email.current.value,
 mobNo :this.phone.current.value ,
 dob: this.dob.current.value,
 counter1: this.state.counter 
-} , ()=>{
-    let people =[];
-    
+} , ()=>{         
    let person={firstname:this.state.firstName,lastname:this.state.lastName,email:this.state.email,phone:this.state.mobNo,jender:this.state.jender,hobbies:this.state.hobbies,dob:this.state.dob}  
-people.push(person)
-
-people.forEach((person, index) => {
-    if(this.state.editRowIndex === index){ this.rows.push(this.renderEditableRow(person, index))
-
-            }
-                    else{ this.rows.push(this.renderDisplayRow(person, index))}
+this.people.push(person)
+this.people.forEach((person, index) => {
+    if(this.state.editRowIndex === index){ this.rows.push(this.renderEditableRow(person, index));}
+                    else{ this.rows.push(this.renderDisplayRow(person, index));
+                }
     })
-    this.setState({counter2:this.rows})
+
 });
+
 document.getElementById('myform').reset();
 if(this.state.counter1==this.state.counter||this.state.hobbies==""){
     this.setState({hobbies: 'na'})
@@ -229,7 +235,7 @@ render(){
                             </tr>
                         </thead>
                         <tbody id='tbody'>
-                          {this.state.counter2}    
+                          {this.rows}    
 </tbody>                   
                 </table>
             </div>
