@@ -1,3 +1,4 @@
+import './checkRef.jsx';
 import './form.jsx';
 import './table.jsx';
 import './Accordion.jsx';
@@ -10,10 +11,11 @@ import User from './user.jsx';
 import Accordion from './Accordion.jsx';
 import Table from './table.jsx';
 import Form from './form.jsx';
+import CheckRef from './checkRef.jsx';
 function App() {
   return(
   <div className="App">
-    <Form/>
+    <Form/> 
    </div>
     );
 }
