@@ -28,7 +28,7 @@ class Form extends React.Component{
     
     saveUser = (index) => {
       
-        let person={firstname:this.firstname,lastname: this.lastname,email:this.email,
+      let person={firstname:this.firstname,lastname: this.lastname,email:this.email,
 phone:this.phone ,jender:this.state.jender,hobbies:this.state.hobbies,dob:this.state.birthdate}      
 
       this.people[index]=person      
@@ -164,7 +164,7 @@ return rows;
     this.phoneRef.current.focus();
     return false;
     }
-    else if(this.birthdate==""){
+    else if(this.state.birthdate==null){
     alert("date of birth is MT")
     this.dobRef.current.focus();
     return false;
@@ -185,7 +185,8 @@ return rows;
     if(this.state.counter1==this.state.counter||this.state.hobbies==""){
     this.setState({hobbies: 'na'})
     }
-    }
+setTimeout(this.firstname="", this.lastname="", this.email="", this.phone="" , this.setState({birthdate:null }) ,3000)
+  }
     
     
     render(){
