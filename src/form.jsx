@@ -7,7 +7,7 @@ class Form extends React.Component{
     this.lastname=''
     this.email=''
     this.phone=''
-        
+this.jendername=""        
     this.people=[];
     this.state={
     jender : null,  
@@ -56,12 +56,17 @@ return rows;
     <td><input id='lastedit'  type="text"name='last' aria-label="Last Name" placeholder={person.lastname}   ref={this.last} onChange={this.lastFunction} /></td>
     <td><input id='emailedit'  type="text"name='email' placeholder={person.email} aria-label="email"ref={this.email} onChange={this.emailFunction} /></td>
     <td><input   id='phoneedit'  type="number"name='phone' aria-label="mobolNo" placeholder={person.phone} ref={this.phone}onChange={this.phoneFunction} /></td>
-    <td><label htmlFor="Male">Male</label>
-    <input type="radio" id="Male" name="gender" aria-required="true" value="male" ref={this.male} onChange={this.radio} /><br/>
-    <label htmlFor="Other">Other</label>
-    <input type="radio" id="Other" name="gender" aria-required="true" value="other"onChange={this.radio}/><br/>
-    <label htmlFor="Female">Female</label>
-    <input type="radio" id="Female" name="gender" aria-required="true" value="female"onChange={this.radio}/></td>
+    <td> <fieldset>
+<legend>Selecting elements</legend>
+<p>
+<label>Choose your jender:</label>
+<select id = "myList"onChange={this.radio}>
+<option value = "Male" >Male</option>
+<option value = "other">Other</option>
+<option value = "Female">Female</option>
+</select>
+</p>
+</fieldset> </td>
     <td><p>select your hobbies</p> <label htmlFor="Playingcricket">playing cricket </label>
     <input type="checkbox"className="pl" id="Playingcricket" name="hobi"value="playing cricket,"onClick={this.checkbox}/><br/><br/>
     <label htmlFor="Singing">singing</label>
@@ -116,7 +121,9 @@ return rows;
     counter:this.state.counter+1
     })
     }
-
+radio1=(event)=>{
+  this.jendername=event.target.value
+}
     radio=(event)=>{
     this.setState(
     { jender : event.target.value}
