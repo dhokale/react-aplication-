@@ -26,15 +26,18 @@ class Form extends React.Component{
     this.male=React.createRef();
     }
     
+   cancelUser=(index)=>{
+    return(e)=>{ this.setState({editRowIndex:null})}     
+   }
     saveUser = (index) => {
       
       let person={firstname:this.firstname,lastname: this.lastname,email:this.email,
 phone:this.phone ,jender:this.state.jender,hobbies:this.state.hobbies,dob:this.state.birthdate}      
 
       this.people[index]=person      
-  
-      return(e)=>{ this.setState({editRowIndex:null})}     
-    };
+
+      return(e)=>{ this.setState({editRowIndex:null,hobbies:'na-'})}     
+    }
     renderRows=()=>{
       let rows=[];
       this.people.forEach((person, index) => {
@@ -42,7 +45,9 @@ phone:this.phone ,jender:this.state.jender,hobbies:this.state.hobbies,dob:this.s
 return rows;           
 }; 
     handleEditClick = (index) => {
-  return(e)=>{ this.setState({editRowIndex:index})}     
+
+  return(e)=>{ this.setState({editRowIndex:index})}
+  
 }
     renderEditableRow = (person, index) => {
       return(
@@ -65,7 +70,7 @@ return rows;
     <td>
     <button onClick={ this.saveUser(index)}>Save</button>
     </td>
-   <td> <button>delete</button></td>
+   <td> <button  onClick={this.cancelUser(index)}>cancel</button></td>
     </tr>
     )
     }
@@ -182,10 +187,8 @@ return rows;
       phone:this.phone ,jender:this.state.jender,hobbies:this.state.hobbies,dob:this.state.birthdate}                
     this.people.push(person)
     document.getElementById('myform').reset();
-    if(this.state.counter1==this.state.counter||this.state.hobbies==""){
-    this.setState({hobbies: 'na'})
-    }
-setTimeout(this.firstname="", this.lastname="", this.email="", this.phone="" , this.setState({birthdate:null }) ,3000)
+    
+setTimeout(this.firstname="", this.lastname="", this.email="", this.phone="" , this.setState({birthdate:null,hobbies:'na-'}) ,3000)
   }
     
     
