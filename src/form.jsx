@@ -6,14 +6,13 @@ class Form extends React.Component{
     this.firstname=''
     this.lastname=''
     this.email=''
-    this.phone=''
-this.jendername=""        
+    this.phone=''        
     this.people=[];
     this.state={
     jender : null,  
     birthdate: null,
     hobbies :'na-',
-    counter: 0,
+    counter: false,
     editRowIndex:null,
     counter1: 0
     };
@@ -29,15 +28,60 @@ this.jendername=""
    cancelUser=(index)=>{
     return(e)=>{ this.setState({editRowIndex:null})}     
    }
-    saveUser = (index) => {
-      
-      let person={firstname:this.firstname,lastname: this.lastname,email:this.email,
-phone:this.phone ,jender:this.state.jender,hobbies:this.state.hobbies,dob:this.state.birthdate}      
-
-      this.people[index]=person      
-
-      return(e)=>{ this.setState({editRowIndex:null,hobbies:'na-'})}     
+   saveUser = (index)=> {
+    return(e)=>{
+      var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+    var letters = [1-0];
+    if(this.firstname ===""){
+    alert("firstName is blank ")
+    this.first.current.focus();
+    return false;
     }
+    else if(this.firstname===letters||!isNaN(this.firstname)){
+    alert("**Please fill the firstname only character not a number")
+    this.first.current.focus();
+    return false;
+    }
+    else if(this.lastname===""){
+    alert("last name is blank");
+    this.last.current.focus();
+    return false
+    }
+    else if(this.lastname===letters||!isNaN(this.lastname)){
+    alert("Please fill the lastname only character not a number")
+    this.last.current.focus();
+    return false;
+    }
+    else if(!this.email.match(mailformat)){
+    alert(" some think is rong on your email")
+    this.emailRef.current.focus();
+    return false
+    }      
+    else if((this.phone.length < 9 )||(this.phone.length>10)){
+    alert("mobile number is blank or mobile number should be 10 digit" )
+    this.phoneRef.current.focus();
+    return false;
+    }
+    else if(this.state.birthdate==null){
+    alert("date of birth is MT")
+    this.dobRef.current.focus();
+    return false;
+    }
+    else if(this.state.jender===null){
+    alert("please select your jender ")
+    this.male.current.focus();
+    return false;
+    }
+     
+    let person={firstname:this.firstname,lastname: this.lastname,email:this.email,
+phone:this.phone ,jender:this.state.jender,hobbies:this.state.hobbies,dob:this.state.birthdate}      
+    this.people[index]=person      
+    
+       this.setState({editRowIndex:null})
+       setTimeout(this.firstname="", this.lastname="", this.email="", this.phone="" , this.setState({birthdate:null,hobbies:'na-',jender:null}) ,3000)  
+      } 
+       
+ }     
     renderRows=()=>{
       let rows=[];
       this.people.forEach((person, index) => {
@@ -47,7 +91,6 @@ return rows;
     handleEditClick = (index) => {
 
   return(e)=>{ this.setState({editRowIndex:index})}
-  
 }
     renderEditableRow = (person, index) => {
       return(
@@ -60,7 +103,7 @@ return rows;
 <legend>Selecting elements</legend>
 <p>
 <label>Choose your jender:</label>
-<select id = "myList"onChange={this.radio}>
+<select id = "myList"onChange={this.radio}ref={this.male}>
 <option value = "Male" >Male</option>
 <option value = "other">Other</option>
 <option value = "Female">Female</option>
@@ -73,8 +116,7 @@ return rows;
     <input type="checkbox"className="pl" id="Singing" name="hobi" value="Singing" onClick={this.checkbox}/><br/><br/></td>
     <td> <input id='doB' type="date" aria-required="true"name="date of berth "min="1974-01-01" max="2022-01-01"ref={this.dob}onChange={this.birthdateFunction}/></td>
     <td>
-    <button onClick={ this.saveUser(index)}>Save</button>
-    </td>
+    <button type="button" onClick={ this.saveUser(index)}>Save</button>    </td>
    <td> <button  onClick={this.cancelUser(index)}>cancel</button></td>
     </tr>
     )
@@ -90,7 +132,7 @@ return rows;
     <td>{person.hobbies}</td>
     <td>{person.dob}</td>
     <td>
-    <button onClick={this.handleEditClick(index)}>Edit</button>
+    <button onClick={ this.handleEditClick(index)}> edit</button>
     </td>
     <td><button>delete</button></td>
     </tr>
@@ -117,13 +159,10 @@ return rows;
     }
     
     }
-    this.setState({ hobbies: select,
-    counter:this.state.counter+1
-    })
+    this.setState({ hobbies: select
+        })
     }
-radio1=(event)=>{
-  this.jendername=event.target.value
-}
+
     radio=(event)=>{
     this.setState(
     { jender : event.target.value}
@@ -134,7 +173,7 @@ radio1=(event)=>{
       }
     
     submitMap=(event)=>{
-      
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
     var letters = [1-0];
     if(this.firstname ===""){
     alert("firstName is blank ")
@@ -156,21 +195,12 @@ radio1=(event)=>{
     this.last.current.focus();
     return false;
     }
-    else if(this.email===""){
-    alert("email is blank ");
+    else if(!this.email.match(mailformat)){
+    alert(" some think is rong on your email")
     this.emailRef.current.focus();
     return false
     }
-    else if(this.email.indexOf('@')<=0){
-    alert("at is inVelede position ")
-    this.emailRef.current.focus();
-    return false;
-    }
-    else if((this.email.charAt(this.email.length-4)!='.') && (this.email.charAt(this.email.length-3)!='.')){
-    alert(" . is invalid position ")
-    this.emailRef.current.focus();
-    return false;
-    }
+    
     else if((this.phone.length < 9 )||(this.phone.length>10)){
     alert("mobile number is blank or mobile number should be 10 digit" )
     this.phoneRef.current.focus();
@@ -187,9 +217,6 @@ radio1=(event)=>{
     return false;
     }
     
-    this.setState(
-    {counter1: this.state.counter
-    })
     let person={firstname:this.firstname,lastname: this.lastname,email:this.email,
       phone:this.phone ,jender:this.state.jender,hobbies:this.state.hobbies,dob:this.state.birthdate}                
     this.people.push(person)
