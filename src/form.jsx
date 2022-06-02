@@ -12,7 +12,7 @@ class Form extends React.Component{
     jender : null,  
     birthdate: null,
     hobbies :'na-',
-    counter: false,
+    user: false,
     editRowIndex:null,
     counter1: 0
     };
@@ -24,9 +24,11 @@ class Form extends React.Component{
     this.dobRef=React.createRef();
     this.male=React.createRef();
     }
-    
+    deleteUser=(index)=>{
+      return(e)=>{this.people.pop(index); this.setState({editRowIndex:null})}     
+    }
    cancelUser=(index)=>{
-    return(e)=>{ this.setState({editRowIndex:null})}     
+    return(e)=>{ this.setState({editRowIndex:null ,user:false})}     
    }
    saveUser = (index)=> {
     return(e)=>{
@@ -77,7 +79,7 @@ class Form extends React.Component{
 phone:this.phone ,jender:this.state.jender,hobbies:this.state.hobbies,dob:this.state.birthdate}      
     this.people[index]=person      
     
-       this.setState({editRowIndex:null})
+       this.setState({editRowIndex:null,user:false})
        setTimeout(this.firstname="", this.lastname="", this.email="", this.phone="" , this.setState({birthdate:null,hobbies:'na-',jender:null}) ,3000)  
       } 
        
@@ -90,14 +92,13 @@ return rows;
 }; 
     handleEditClick = (index) => {
 
-  return(e)=>{ this.setState({editRowIndex:index})}
-}
+  return(e)=>{ this.setState({editRowIndex:index,user:true},()=> this.first.current.focus())}}
     renderEditableRow = (person, index) => {
       return(
     <tr>
     <td><input id='firstedit' type="text"name='first' aria-label="First" placeholder={person.firstname}  ref={this.first}onChange={this.firstFunction} /></td>
     <td><input id='lastedit'  type="text"name='last' aria-label="Last Name" placeholder={person.lastname}   ref={this.last} onChange={this.lastFunction} /></td>
-    <td><input id='emailedit'  type="text"name='email' placeholder={person.email} aria-label="email"ref={this.email} onChange={this.emailFunction} /></td>
+    <td><input id='emailedit'  type="text"name='email' placeholder={person.email} aria-label="email"ref={this.emailRef} onChange={this.emailFunction} /></td>
     <td><input   id='phoneedit'  type="number"name='phone' aria-label="mobolNo" placeholder={person.phone} ref={this.phone}onChange={this.phoneFunction} /></td>
     <td> <fieldset>
 <legend>Selecting elements</legend>
@@ -110,11 +111,15 @@ return rows;
 </select>
 </p>
 </fieldset> </td>
-    <td><p>select your hobbies</p> <label htmlFor="Playingcricket">playing cricket </label>
-    <input type="checkbox"className="pl" id="Playingcricket" name="hobi"value="playing cricket,"onClick={this.checkbox}/><br/><br/>
-    <label htmlFor="Singing">singing</label>
-    <input type="checkbox"className="pl" id="Singing" name="hobi" value="Singing" onClick={this.checkbox}/><br/><br/></td>
-    <td> <input id='doB' type="date" aria-required="true"name="date of berth "min="1974-01-01" max="2022-01-01"ref={this.dob}onChange={this.birthdateFunction}/></td>
+    <td><fieldset>
+    <select name="new list"id='list1' multiple={true} onChange={this.checkbox1}>
+      
+        <option value="plaingCricket">plaing cricket </option>
+        <option value="singing ">singing</option>
+      
+    </select>
+      </fieldset> </td>
+    <td> <input id='doB' type="date" aria-required="true"name="date of berth "min="1974-01-01" max="2022-01-01"ref={this.dobRef}onChange={this.birthdateFunction}/></td>
     <td>
     <button type="button" onClick={ this.saveUser(index)}>Save</button>    </td>
    <td> <button  onClick={this.cancelUser(index)}>cancel</button></td>
@@ -134,7 +139,7 @@ return rows;
     <td>
     <button onClick={ this.handleEditClick(index)}> edit</button>
     </td>
-    <td><button>delete</button></td>
+    <td><button onClick={this.deleteUser(index)}>delete</button></td>
     </tr>
     )
     }
@@ -162,7 +167,10 @@ return rows;
     this.setState({ hobbies: select
         })
     }
-
+checkbox1=(event)=>{
+  this.setState({ hobbies: event.target.value
+        })
+}
     radio=(event)=>{
     this.setState(
     { jender : event.target.value}
@@ -262,7 +270,7 @@ setTimeout(this.firstname="", this.lastname="", this.email="", this.phone="" , t
     <input type="checkbox"className="pl" id="singing" name="hobi" value="Singing" onClick={this.checkbox}/><br/><br/>
     <label htmlFor="dob">date of berth </label>
     <input id='dob' type="date" aria-required="true"name="date of berth "min="1974-01-01" max="2022-01-01"ref={this.dobRef} onChange={this.birthdateFunction}/>
-    <button type="button"onClick={ this.submitMap}> submit</button>
+    <button type="button" disabled={this.state.user} aria-disabled={this.state.user} onClick={ this.submitMap}> submit</button>
     <br/>
     <input type="reset" value="Reset" />
     </form>
