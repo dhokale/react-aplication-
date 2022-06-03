@@ -80,7 +80,7 @@ phone:this.phone ,jender:this.state.jender,hobbies:this.state.hobbies,dob:this.s
     this.people[index]=person      
     
        this.setState({editRowIndex:null,user:false})
-       setTimeout(this.firstname="", this.lastname="", this.email="", this.phone="" , this.setState({birthdate:null,hobbies:'na-',jender:null}) ,3000)  
+       setTimeout(this.firstname="", this.lastname="", this.email="", this.phone=""  ,3000)  
       } 
        
  }     
@@ -90,16 +90,17 @@ phone:this.phone ,jender:this.state.jender,hobbies:this.state.hobbies,dob:this.s
            if(this.state.editRowIndex === index) rows.push(this.renderEditableRow(person, index)); else rows.push(this.renderDisplayRow(person, index)); });
 return rows;           
 }; 
-    handleEditClick = (index) => {
-
-  return(e)=>{ this.setState({editRowIndex:index,user:true},()=> this.first.current.focus())}}
+    handleEditClick = ( index) => {
+  return(e)=>{
+   this.setState({editRowIndex:index,user:true},()=> this.first.current.focus()) }}
     renderEditableRow = (person, index) => {
+      
       return(
     <tr>
-    <td><input id='firstedit' type="text"name='first' aria-label="First" placeholder={person.firstname}  ref={this.first}onChange={this.firstFunction} /></td>
-    <td><input id='lastedit'  type="text"name='last' aria-label="Last Name" placeholder={person.lastname}   ref={this.last} onChange={this.lastFunction} /></td>
-    <td><input id='emailedit'  type="text"name='email' placeholder={person.email} aria-label="email"ref={this.emailRef} onChange={this.emailFunction} /></td>
-    <td><input   id='phoneedit'  type="number"name='phone' aria-label="mobolNo" placeholder={person.phone} ref={this.phone}onChange={this.phoneFunction} /></td>
+    <td><input id='firstedit' type="text"name='first' aria-label="First" value={this.firstname=person.firstname}ref={this.first}onChange={this.firstFunction} /></td>
+    <td><input id='lastedit'  type="text"name='last' aria-label="Last Name" value={this.lastname=person.lastname} ref={this.last} onChange={this.lastFunction} /></td>
+    <td><input id='emailedit'  type="text"name='email' value={this.email=person.email} aria-label="email"ref={this.emailRef} onChange={this.emailFunction} /></td>
+    <td><input   id='phoneedit'  type="number"name='phone' aria-label="mobolNo" value={this.phone=person.phone} ref={this.phone}onChange={this.phoneFunction} /></td>
     <td> <fieldset>
 <legend>Selecting elements</legend>
 <p>
@@ -119,7 +120,7 @@ return rows;
       
     </select>
       </fieldset> </td>
-    <td> <input id='doB' type="date" aria-required="true"name="date of berth "min="1974-01-01" max="2022-01-01"ref={this.dobRef}onChange={this.birthdateFunction}/></td>
+    <td> <input id='doB' type="date" aria-required="true"name="date of berth "min="1974-01-01" max="2022-01-01" value={this.state.birthdate=person.dob}ref={this.dobRef}onChange={this.birthdateFunction}/></td>
     <td>
     <button type="button" onClick={ this.saveUser(index)}>Save</button>    </td>
    <td> <button  onClick={this.cancelUser(index)}>cancel</button></td>
