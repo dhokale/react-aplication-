@@ -94,13 +94,12 @@ return rows;
   return(e)=>{
    this.setState({editRowIndex:index,user:true},()=> this.first.current.focus()) }}
     renderEditableRow = (person, index) => {
-      
-      return(
+return(
     <tr>
-    <td><input id='firstedit' type="text"name='first' aria-label="First" value={this.firstname=person.firstname}ref={this.first}onChange={this.firstFunction} /></td>
-    <td><input id='lastedit'  type="text"name='last' aria-label="Last Name" value={this.lastname=person.lastname} ref={this.last} onChange={this.lastFunction} /></td>
-    <td><input id='emailedit'  type="text"name='email' value={this.email=person.email} aria-label="email"ref={this.emailRef} onChange={this.emailFunction} /></td>
-    <td><input   id='phoneedit'  type="number"name='phone' aria-label="mobolNo" value={this.phone=person.phone} ref={this.phone}onChange={this.phoneFunction} /></td>
+    <td><input id='firstedit' type="text"name='first' aria-label="First" defaultValue={person.firstname}ref={this.first}onChange={this.firstFunction} /></td>
+    <td><input id='lastedit'  type="text"name='last' aria-label="Last Name" defaultValue={person.lastname} ref={this.last} onChange={this.lastFunction} /></td>
+    <td><input id='emailedit'  type="text"name='email' defaultValue={person.email} aria-label="email"ref={this.emailRef} onChange={this.emailFunction} /></td>
+    <td><input   id='phoneedit'  type="number"name='phone' aria-label="mobolNo" defaultValue={person.phone} ref={this.phone}onChange={this.phoneFunction} /></td>
     <td> <fieldset>
 <legend>Selecting elements</legend>
 <p>
@@ -111,7 +110,7 @@ return rows;
 <option value = "Female">Female</option>
 </select>
 </p>
-</fieldset> </td>
+</fieldset> </td>@
     <td><fieldset>
     <select name="new list"id='list1' multiple={true} onChange={this.checkbox1}>
       
@@ -120,7 +119,7 @@ return rows;
       
     </select>
       </fieldset> </td>
-    <td> <input id='doB' type="date" aria-required="true"name="date of berth "min="1974-01-01" max="2022-01-01" value={this.state.birthdate=person.dob}ref={this.dobRef}onChange={this.birthdateFunction}/></td>
+    <td> <input id='doB' type="date" aria-required="true"name="date of berth "min="1974-01-01" max="2022-01-01" defaultValue={person.dob}ref={this.dobRef}onChange={this.birthdateFunction}/></td>
     <td>
     <button type="button" onClick={ this.saveUser(index)}>Save</button>    </td>
    <td> <button  onClick={this.cancelUser(index)}>cancel</button></td>
